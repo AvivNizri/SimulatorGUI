@@ -55,21 +55,10 @@ public class MainFrameController implements Observer {
     private ObjectProperty<double[][]> ground;
     private DoubleProperty gridCellH, gridCellW;
 
-    // Autopilot mode
-    @FXML
-    private TextArea simScript;
     @FXML
     private RadioButton autopilotMode;
-
-    // Topographic Map
     @FXML
     private Button openConnectWindow;
-    @FXML
-    private Button calculatePathBtn;
-    @FXML
-    private Button loadMapBtn;
-    @FXML
-    private Group mapGroup;
     @FXML
     private Label minHeight;
     @FXML
@@ -107,25 +96,12 @@ public class MainFrameController implements Observer {
     @FXML
     private RadioButton manualMode;
 
-    // Objects for manual mode data panel
-    @FXML
-    private Label aileronValue;
-    @FXML
-    private Label elevatorValue;
-    @FXML
-    private Label throttleValue;
-    @FXML
-    private Label rudderValue;
 
     public MainFrameController() {
         openConnectWindow = new Button();
-        calculatePathBtn = new Button();
-        loadMapBtn = new Button();
-        simScript = new TextArea();
         connectDataErrorMsg = new Label();
         minHeight = new Label();
         maxHeight = new Label();
-        mapGroup = new Group();
         backToMain = new Button();
         connectServerBtn = new Button();
         simServerIp = new TextField();
@@ -139,12 +115,8 @@ public class MainFrameController implements Observer {
         joystick = new Circle();
         frameCircle = new Circle();
         manualMode = new RadioButton();
-        aileronValue = new Label();
-        elevatorValue = new Label();
         aileronV = new SimpleStringProperty();
         elevatorV = new SimpleStringProperty();
-        throttleValue = new Label();
-        rudderValue = new Label();
         autopilotMode = new RadioButton();
 
         csv_srcX = new SimpleDoubleProperty();
@@ -200,8 +172,6 @@ public class MainFrameController implements Observer {
         stage.show();
         if (event.getSource() == openConnectWindow) {
             stage.setTitle("Simulator Server");
-        } else if (event.getSource() == calculatePathBtn) {
-            stage.setTitle("Path Calculation Server");
         }
     }
 
@@ -228,7 +198,6 @@ public class MainFrameController implements Observer {
                 simServerIp.setText(ip);
                 simServerPort.setText(port);
 //                viewModel.connectToSimulator();
-                loadMapBtn.setVisible(true);
             } else if (mode == "Path Calculation Server") {
                 // handle connection for calculating path
                 pathServerIp.setText(ip);
@@ -286,7 +255,6 @@ public class MainFrameController implements Observer {
 //                viewModel.ground.bind(ground);
                 minHeight.setText("" + min);
                 maxHeight.setText("" + max);
-                calculatePathBtn.setVisible(true);
                 plane.get().setVisible(true);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -315,19 +283,18 @@ public class MainFrameController implements Observer {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            simScript.setText(script);
         }
     }
 
-    @FXML
-    private void runScript() {
-        if (simScript.getText().length() != 0)
-//            viewModel.sendScriptToSimulator();
-        simScript.clear();
-    }
+    //@FXML
+//    private void runScript() {
+//        if (simScript.getText().length() != 0)
+////            viewModel.sendScriptToSimulator();
+//        simScript.clear();
+//    }
 
     @FXML
-    private void joystickPressed(MouseEvent me) {
+    private void joystickIsPressed(MouseEvent me) {
         if (manualMode.isSelected()) {
             orgSceneX = me.getSceneX();
             orgSceneY = me.getSceneY();
@@ -337,7 +304,7 @@ public class MainFrameController implements Observer {
     }
 
     @FXML
-    private void joystickDragged(MouseEvent me) {
+    private void joystickIsDragged(MouseEvent me) {
         if (manualMode.isSelected()) {
             double offsetX = me.getSceneX() - orgSceneX;
             double offsetY = me.getSceneY() - orgSceneY;
@@ -373,8 +340,7 @@ public class MainFrameController implements Observer {
                     .round(((((newTranslateY - contractionsCenterY) / (maxY - contractionsCenterY)) * 2) - 1) * 100.00)
                     / 100.00;
             // send command only if manual mode is selected
-            aileronValue.setText("" + normalX);
-            elevatorValue.setText("" + normalY);
+
             aileronV.set("" + normalX);
             elevatorV.set("" + normalY);
 
@@ -384,15 +350,14 @@ public class MainFrameController implements Observer {
     }
 
     @FXML
-    private void joystickReleased(MouseEvent me) {
+    private void joystickIsReleased(MouseEvent me) {
         if (manualMode.isSelected()) {
             ((Circle) (me.getSource()))
                     .setTranslateX(frameCircle.getTranslateX() + frameCircle.getRadius() - joystick.getRadius());
             ((Circle) (me.getSource()))
                     .setTranslateY(frameCircle.getTranslateY() - frameCircle.getRadius() - joystick.getRadius());
 
-            aileronValue.setText("" + 0);
-            elevatorValue.setText("" + 0);
+
             aileronV.set("0.0");
             elevatorV.set("0.0");
 
@@ -404,17 +369,8 @@ public class MainFrameController implements Observer {
     @FXML
     private void radioButtonClicked() {
         if (manualMode.isSelected()) {
-            rudderValue.setText("" + (Math.round((rudderSlider.getValue() * 10.00))) / 10.00); // round to the closest
-            // decimal
-            throttleValue.setText("" + (Math.round((throttleSlider.getValue() * 10.00))) / 10.00); // round to the
-            // closest decimal
-            aileronValue.setText("" + 0);
-            elevatorValue.setText("" + 0);
+
         } else {
-            rudderValue.setText("");
-            throttleValue.setText("");
-            aileronValue.setText("");
-            elevatorValue.setText("");
             rudderSlider.setValue(0);
             throttleSlider.setValue(0);
         }
@@ -426,7 +382,6 @@ public class MainFrameController implements Observer {
             @Override
             public void changed(ObservableValue<?> arg0, Object arg1, Object arg2) {
                 if (manualMode.isSelected()) {
-                    rudderValue.textProperty().setValue("" + (Math.round((rudderSlider.getValue() * 10.00))) / 10.00);
                     //viewModel.setRudder();
                 }
             }
@@ -436,9 +391,7 @@ public class MainFrameController implements Observer {
             @Override
             public void changed(ObservableValue<?> arg0, Object arg1, Object arg2) {
                 if (manualMode.isSelected()) {
-                    throttleValue.textProperty()
-                            .setValue("" + (Math.round((throttleSlider.getValue() * 10.00))) / 10.00);
-                    //viewModel.setThrottle();
+
                 }
             }
         });

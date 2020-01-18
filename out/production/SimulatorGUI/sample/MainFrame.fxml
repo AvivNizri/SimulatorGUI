@@ -22,7 +22,7 @@
                     </font>
                 </Text>
                 <Circle fx:id="frameCircle" fill="#a4a2a6ae" radius="100.0" stroke="WHITE" strokeType="INSIDE" translateX="90.0" translateY="40.0" />
-                <Circle fx:id="joystick" radius="33.0" stroke="BLACK" strokeType="INSIDE" translateX="157.0" translateY="-93.0">
+                <Circle id="joystick" fx:id="joystick" onMouseDragged="#joystickIsDragged" onMousePressed="#joystickIsPressed" onMouseReleased="#joystickIsReleased" radius="33.0" stroke="BLACK" strokeType="INSIDE" translateX="157.0" translateY="-93.0">
                     <fill>
                   <RadialGradient centerX="0.4722222222222222" centerY="0.5" radius="0.5">
                      <stops>
