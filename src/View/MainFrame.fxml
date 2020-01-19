@@ -7,9 +7,23 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.MainFrameController">
-    <right>
-        <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="380.0" prefWidth="350.0" BorderPane.alignment="CENTER">
+<BorderPane prefHeight="458.0" prefWidth="378.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MainFrameController">
+   <padding>
+      <Insets bottom="5.0" />
+   </padding>
+   <top>
+          <HBox alignment="CENTER" prefHeight="40.0" prefWidth="225.0" BorderPane.alignment="CENTER">
+              <children>
+                  <Button id="ConnectWindow" fx:id="openConnectWindow" alignment="CENTER" mnemonicParsing="false" onAction="#openConnectWindow" prefHeight="20.0" prefWidth="80.0" text="Connect" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+              </children>
+          </HBox>
+   </top>
+   <center>
+        <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="398.0" prefWidth="386.0" BorderPane.alignment="CENTER">
             <children>
                 <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="  Aileron" translateX="130.0" translateY="60.0" wrappingWidth="102.2421875">
                     <font>
@@ -59,54 +73,5 @@
             <Insets bottom="15.0" right="5.0" />
          </BorderPane.margin>
         </VBox>
-    </right>
-    <center>
-        <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="380.0" prefWidth="200.0" BorderPane.alignment="TOP_CENTER">
-            <children>
-                <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="225.0">
-                    <children>
-                        <RadioButton fx:id="autopilotMode" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" prefHeight="18.0" prefWidth="101.0" selected="true" text="Autopilot" textFill="WHITE">
-                            <HBox.margin>
-                                <Insets left="10.0" />
-                            </HBox.margin>
-                     <toggleGroup>
-                              <ToggleGroup fx:id="simulatorMode" />
-                     </toggleGroup>
-                        </RadioButton>
-                      <RadioButton fx:id="manualMode" maxHeight="-Infinity" mnemonicParsing="false" prefHeight="20.0" text="Manual" textFill="WHITE" toggleGroup="$simulatorMode" />
-                    </children>
-                </HBox>
-                <ButtonBar maxWidth="-Infinity" prefHeight="25.0" prefWidth="135.0">
-                    <buttons>
-                        <Button mnemonicParsing="false" prefWidth="100.0" text="Load" />
-                        <Button minWidth="40.0" mnemonicParsing="false" prefHeight="25.0" text="Run" />
-                    </buttons>
-                    <VBox.margin>
-                        <Insets top="10.0" />
-                    </VBox.margin>
-                </ButtonBar>
-                <TextArea fx:id="simScript" maxWidth="-Infinity" opacity="0.5" prefHeight="360.0" prefWidth="190.0" VBox.vgrow="NEVER">
-                    <VBox.margin>
-                        <Insets left="10.0" right="10.0" top="20.0" />
-                    </VBox.margin>
-                </TextArea>
-            </children>
-         <BorderPane.margin>
-            <Insets left="-20.0" top="20.0" />
-         </BorderPane.margin>
-        </VBox>
-    </center>
-   <bottom>
-            <Button fx:id="openConnectWindow" alignment="CENTER" mnemonicParsing="false" prefHeight="20.0" prefWidth="80.0" text="Connect" textAlignment="CENTER" BorderPane.alignment="CENTER">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-         <BorderPane.margin>
-            <Insets bottom="2.0" />
-         </BorderPane.margin>
-      </Button>
-   </bottom>
-   <padding>
-      <Insets bottom="5.0" />
-   </padding>
+   </center>
 </BorderPane>

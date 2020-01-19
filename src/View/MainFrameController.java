@@ -1,4 +1,4 @@
-package sample;
+package View;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -21,18 +21,15 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -167,7 +164,7 @@ public class MainFrameController implements Observer {
         Parent root = (Parent) fxmlLoader.load(getClass().getResource("ConnectPopup.fxml").openStream());
         Stage stage = new Stage();
         stage.initModality(Modality.WINDOW_MODAL);
-//        stage.initOwner(Main.primaryStage);
+        stage.initOwner(MainFrame.primaryStage);
         stage.setScene(new Scene(root));
         stage.show();
         if (event.getSource() == openConnectWindow) {
@@ -295,17 +292,14 @@ public class MainFrameController implements Observer {
 
     @FXML
     private void joystickIsPressed(MouseEvent me) {
-        if (manualMode.isSelected()) {
             orgSceneX = me.getSceneX();
             orgSceneY = me.getSceneY();
             orgTranslateX = ((Circle) (me.getSource())).getTranslateX();
             orgTranslateY = ((Circle) (me.getSource())).getTranslateY();
-        }
     }
 
     @FXML
     private void joystickIsDragged(MouseEvent me) {
-        if (manualMode.isSelected()) {
             double offsetX = me.getSceneX() - orgSceneX;
             double offsetY = me.getSceneY() - orgSceneY;
             double newTranslateX = orgTranslateX + offsetX;
@@ -345,13 +339,11 @@ public class MainFrameController implements Observer {
             elevatorV.set("" + normalY);
 
 //            viewModel.setJoystickChanges();
-        }
 
     }
 
     @FXML
     private void joystickIsReleased(MouseEvent me) {
-        if (manualMode.isSelected()) {
             ((Circle) (me.getSource()))
                     .setTranslateX(frameCircle.getTranslateX() + frameCircle.getRadius() - joystick.getRadius());
             ((Circle) (me.getSource()))
@@ -363,19 +355,7 @@ public class MainFrameController implements Observer {
 
             // update that the value changed
 //            viewModel.setJoystickChanges();
-        }
     }
-
-    @FXML
-    private void radioButtonClicked() {
-        if (manualMode.isSelected()) {
-
-        } else {
-            rudderSlider.setValue(0);
-            throttleSlider.setValue(0);
-        }
-    }
-
 
     public void setSliderOnDragEvent() {
         rudderSlider.valueProperty().addListener(new ChangeListener<Object>() {
@@ -390,9 +370,7 @@ public class MainFrameController implements Observer {
         throttleSlider.valueProperty().addListener(new ChangeListener<Object>() {
             @Override
             public void changed(ObservableValue<?> arg0, Object arg1, Object arg2) {
-                if (manualMode.isSelected()) {
-
-                }
+ 
             }
         });
     }
