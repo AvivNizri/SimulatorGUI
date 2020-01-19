@@ -1,6 +1,6 @@
 package View;
 
-import Simulator.Simulator;
+import Model.Simulator;
 //import ViewModel.ViewModel;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +18,6 @@ public class MainFrame extends Application {
 
         // ***create models and view-model connections***
         // models
-        Simulator simulator = new Simulator();
 
         // view model
         //ViewModel viewModel = new ViewModel(simulator);
@@ -36,7 +35,6 @@ public class MainFrame extends Application {
 //			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
             primaryStage.setScene(scene);
             primaryStage.show();
-            mainFrame.setSliderOnDragEvent();
         } catch (Exception e) {
             e.printStackTrace();
         }

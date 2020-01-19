@@ -1,65 +1,40 @@
 package View;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
+import Model.Simulator;
+import ViewModel.ViewModel;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Circle;
-import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-//import view_model.ViewModel;
 
-public class MainFrameController implements Observer {
-//    private ViewModel viewModel;
+
+public class MainFrameController {
+    private ViewModel viewModel;
     private double orgSceneX, orgSceneY;
     private double orgTranslateX, orgTranslateY;
-    private Circle destCircle;
 
     // MVVM Variables
-    private DoubleProperty destX, destY;
     private StringProperty aileronV, elevatorV;
-    private DoubleProperty csv_srcX, csv_srcY, csv_scale;
-    private IntegerProperty csv_rows, csv_cols;
     private ObjectProperty<ImageView> plane;
-    private ObjectProperty<String[]> directions;
-    private ObjectProperty<double[][]> ground;
-    private DoubleProperty gridCellH, gridCellW;
 
     @FXML
-    private RadioButton autopilotMode;
-    @FXML
     private Button openConnectWindow;
-    @FXML
-    private Label minHeight;
-    @FXML
-    private Label maxHeight;
 
     // Connect to server/path solver window
     @FXML
@@ -74,12 +49,6 @@ public class MainFrameController implements Observer {
     private TextField simServerIp;
     @FXML
     private TextField simServerPort;
-    @FXML
-    private TextField pathServerIp;
-    @FXML
-    private TextField pathServerPort;
-    @FXML
-    private Label connectDataErrorMsg;
 
     // Manual mode objects (slider + joystick)
     @FXML
@@ -90,44 +59,20 @@ public class MainFrameController implements Observer {
     private Circle joystick;
     @FXML
     private Circle frameCircle;
-    @FXML
-    private RadioButton manualMode;
-
 
     public MainFrameController() {
         openConnectWindow = new Button();
-        connectDataErrorMsg = new Label();
-        minHeight = new Label();
-        maxHeight = new Label();
-        backToMain = new Button();
         connectServerBtn = new Button();
         simServerIp = new TextField();
         simServerPort = new TextField();
-        pathServerIp = new TextField();
-        pathServerPort = new TextField();
-        directions = new SimpleObjectProperty<>();
-        ground = new SimpleObjectProperty<>();
         rudderSlider = new Slider();
         throttleSlider = new Slider();
         joystick = new Circle();
         frameCircle = new Circle();
-        manualMode = new RadioButton();
         aileronV = new SimpleStringProperty();
         elevatorV = new SimpleStringProperty();
-        autopilotMode = new RadioButton();
-
-        csv_srcX = new SimpleDoubleProperty();
-        csv_srcY = new SimpleDoubleProperty();
-        csv_scale = new SimpleDoubleProperty();
-        csv_rows = new SimpleIntegerProperty();
-        csv_cols = new SimpleIntegerProperty();
-
-        gridCellH = new SimpleDoubleProperty();
-        gridCellW = new SimpleDoubleProperty();
-
+        backToMain = new Button();
         plane = new SimpleObjectProperty<>();
-        destX = new SimpleDoubleProperty();
-        destY = new SimpleDoubleProperty();
     }
 
 //    public void setViewModel(ViewModel vm) {
@@ -161,7 +106,8 @@ public class MainFrameController implements Observer {
     private void openConnectWindow(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setController(this);
-        Parent root = (Parent) fxmlLoader.load(getClass().getResource("ConnectPopup.fxml").openStream());
+        Parent root = fxmlLoader.load(getClass().getResource("PopUp.fxml").openStream());
+        //BorderPane root = fxml.load(getClass().getResource("MainFrame.fxml").openStream());
         Stage stage = new Stage();
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(MainFrame.primaryStage);
@@ -171,124 +117,35 @@ public class MainFrameController implements Observer {
             stage.setTitle("Simulator Server");
         }
     }
+    @FXML
+    private void handleConnect(ActionEvent event) throws IOException {
+        String ip = connectionIp.getText();
+        String port = connectionPort.getText();
+        this.viewModel= new ViewModel(new Simulator(new Client(ip, Integer.parseInt(port))));
+        String mode = ((Stage) connectServerBtn.getScene().getWindow()).getTitle();
+
+        if (ip.matches("^(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})$") && port.matches("^(\\d{1,4})")) {
+            if (mode == "Simulator Server") {
+                // handle connection for connecting to the simulator server
+                simServerIp.setText(ip);
+                simServerPort.setText(port);
+                viewModel.simulator.myClient.runClient();
+            } else if (mode == "Path Calculation Server") {
+                // handle connection for calculating path
+//                pathServerIp.setText(ip);
+//                pathServerPort.setText(port);
+            }
+
+            // need to handle connect to server
+            closeConnectWindow(event);
+        }
+    }
 
     @FXML
     private void closeConnectWindow(ActionEvent event) throws IOException {
         Stage stage = (Stage) backToMain.getScene().getWindow();
         stage.close();
     }
-
-    @FXML
-    private void handleConnect(ActionEvent event) throws IOException {
-        String ip = connectionIp.getText();
-        String port = connectionPort.getText();
-//        viewModel.simulatorIP.bind(simServerIp.textProperty());
-//        viewModel.simulatorPort.bind(simServerPort.textProperty());
-//        viewModel.solverIP.bind(pathServerIp.textProperty());
-//        viewModel.solverPort.bind(pathServerPort.textProperty());
-        String mode = ((Stage) connectServerBtn.getScene().getWindow()).getTitle();
-
-        if (ip.matches("^(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})$") && port.matches("^(\\d{1,4})")) {
-
-            if (mode == "Simulator Server") {
-                // handle connection for connecting to the simulator server
-                simServerIp.setText(ip);
-                simServerPort.setText(port);
-//                viewModel.connectToSimulator();
-            } else if (mode == "Path Calculation Server") {
-                // handle connection for calculating path
-                pathServerIp.setText(ip);
-                pathServerPort.setText(port);
-//                viewModel.connectToSolverServer();
-            }
-
-            // need to handle connect to server
-            closeConnectWindow(event);
-        } else {
-            connectDataErrorMsg.setText("Invalid IP address or port, please try again.");
-        }
-    }
-
-    @FXML
-    private void loadData() {
-        FileChooser fc = new FileChooser();
-        fc.setTitle("Choose CSV file");
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
-        fc.getExtensionFilters().add(extFilter);
-        File file = fc.showOpenDialog(null);
-        if (file != null) {
-            String line;
-            Double min = null, max = null;
-            ArrayList<String[]> valuesTable = new ArrayList<>();
-            String[] currentRow;
-            double[][] valuesInDouble = null;
-
-            try {
-                BufferedReader br = new BufferedReader(new FileReader(file));
-                String[] coordinates = br.readLine().split(",");
-                csv_srcX.set(Double.parseDouble(coordinates[0])); // x0
-                csv_srcY.set(Double.parseDouble(coordinates[1])); // y0
-                csv_scale.set(Double.parseDouble(br.readLine().split(",")[0]));
-                while ((line = br.readLine()) != null) {
-                    valuesTable.add(line.split(","));
-                }
-                csv_rows.set(valuesTable.size());
-                csv_cols.set(valuesTable.get(0).length);
-                valuesInDouble = new double[csv_rows.get()][csv_cols.get()];
-                for (int i = 0; i < csv_rows.get(); i++) {
-                    currentRow = valuesTable.get(i);
-                    for (int j = 0; j < csv_cols.get(); j++) {
-                        double currentVal = Double.parseDouble(currentRow[j]);
-                        valuesInDouble[i][j] = currentVal;
-                        if (min == null || currentVal < min) {
-                            min = currentVal;
-                        }
-                        if (max == null || currentVal > max) {
-                            max = currentVal;
-                        }
-                    }
-                }
-                br.close();
-//                viewModel.ground.bind(ground);
-                minHeight.setText("" + min);
-                maxHeight.setText("" + max);
-                plane.get().setVisible(true);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        }
-
-    }
-
-    @FXML
-    private void loadScript() {
-        FileChooser fc = new FileChooser();
-        fc.setTitle("Choose CSV file");
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
-        fc.getExtensionFilters().add(extFilter);
-        File file = fc.showOpenDialog(null);
-        String script = "";
-        String line;
-        if (file != null) {
-            try {
-                BufferedReader br = new BufferedReader(new FileReader(file));
-                while ((line = br.readLine()) != null) {
-                    script = script + line + "\n";
-                }
-                br.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    //@FXML
-//    private void runScript() {
-//        if (simScript.getText().length() != 0)
-////            viewModel.sendScriptToSimulator();
-//        simScript.clear();
-//    }
 
     @FXML
     private void joystickIsPressed(MouseEvent me) {
@@ -355,28 +212,5 @@ public class MainFrameController implements Observer {
 
             // update that the value changed
 //            viewModel.setJoystickChanges();
-    }
-
-    public void setSliderOnDragEvent() {
-        rudderSlider.valueProperty().addListener(new ChangeListener<Object>() {
-            @Override
-            public void changed(ObservableValue<?> arg0, Object arg1, Object arg2) {
-                if (manualMode.isSelected()) {
-                    //viewModel.setRudder();
-                }
-            }
-        });
-
-        throttleSlider.valueProperty().addListener(new ChangeListener<Object>() {
-            @Override
-            public void changed(ObservableValue<?> arg0, Object arg1, Object arg2) {
- 
-            }
-        });
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-
     }
 }
