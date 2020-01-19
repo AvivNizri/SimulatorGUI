@@ -14,7 +14,8 @@
    <top>
           <HBox alignment="CENTER" prefHeight="40.0" prefWidth="225.0" BorderPane.alignment="CENTER">
               <children>
-                  <Button id="ConnectWindow" fx:id="openConnectWindow" alignment="CENTER" mnemonicParsing="false" onAction="#openConnectWindow" prefHeight="20.0" prefWidth="80.0" text="Connect" textAlignment="CENTER">
+                  <Button id="ConnectWindow" fx:id="openConnectWindow" alignment="CENTER" mnemonicParsing="false" onAction="#handleConnectRemove" prefHeight="20.0" prefWidth="80.0" text="Connect" textAlignment="CENTER">
+                      <!-- use this!!!! <Button id="ConnectWindow" fx:id="openConnectWindow" alignment="CENTER" mnemonicParsing="false" onAction="#openConnectWindow" prefHeight="20.0" prefWidth="80.0" text="Connect" textAlignment="CENTER">-->
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

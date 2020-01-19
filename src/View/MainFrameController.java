@@ -106,21 +106,56 @@ public class MainFrameController {
     private void openConnectWindow(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setController(this);
-        Parent root = fxmlLoader.load(getClass().getResource("PopUp.fxml").openStream());
-        //BorderPane root = fxml.load(getClass().getResource("MainFrame.fxml").openStream());
-        Stage stage = new Stage();
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(MainFrame.primaryStage);
-        stage.setScene(new Scene(root));
-        stage.show();
-        if (event.getSource() == openConnectWindow) {
-            stage.setTitle("Simulator Server");
+
+        // that important!!!!
+        //Parent root = (Parent) fxmlLoader.load(getClass().getResource("PopUp.fxml").openStream());
+
+//        Stage stage = new Stage();
+//        stage.initModality(Modality.WINDOW_MODAL);
+//        stage.initOwner(MainFrame.primaryStage);
+//        stage.setScene(new Scene(root));
+//        stage.show();
+//        if (event.getSource() == openConnectWindow) {
+//            stage.setTitle("Simulator Server");
+//        }
+
+        // dont foret to remove!!!!!!!!!!!!1
+        handleConnectRemove();
+    }
+
+    /* Remove the following method!!!!!!!!!! */
+    @FXML
+    private void handleConnectRemove() throws IOException {
+        String ip = "127.0.0.1";
+        String port = "5402";
+        System.out.println("Param : " + ip  +"  "+ port);
+        this.viewModel= new ViewModel(new Simulator(new Client(ip, Integer.parseInt(port))));
+        String mode = ((Stage) connectServerBtn.getScene().getWindow()).getTitle();
+
+        if (ip.matches("^(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})$") && port.matches("^(\\d{1,4})")) {
+            if (mode == "Simulator Server") {
+                // handle connection for connecting to the simulator server
+                simServerIp.setText(ip);
+                simServerPort.setText(port);
+                viewModel.simulator.myClient.runClient();
+            } else if (mode == "Path Calculation Server") {
+                // handle connection for calculating path
+//                pathServerIp.setText(ip);
+//                pathServerPort.setText(port);
+            }
+
+            // need to handle connect to server
+            //closeConnectWindow(event);
         }
     }
+    /* Remove the above method!!!!!!!!!! */
+
+
     @FXML
     private void handleConnect(ActionEvent event) throws IOException {
         String ip = connectionIp.getText();
         String port = connectionPort.getText();
+        System.out.println("Param : " + ip  +"  "+ port);
         this.viewModel= new ViewModel(new Simulator(new Client(ip, Integer.parseInt(port))));
         String mode = ((Stage) connectServerBtn.getScene().getWindow()).getTitle();
 
