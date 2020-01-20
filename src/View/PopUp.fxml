@@ -9,7 +9,7 @@
         <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <buttons>
                 <Button fx:id="ServerConnect" mnemonicParsing="false" onAction="#handleConnect" text="Connect to Server" />
-                <Button id="back" fx:id="back" mnemonicParsing="false" onAction="#closeConnectWindow" text="Back" />
+                <Button fx:id="back" mnemonicParsing="false" onAction="#closeConnectWindow" text="Back" />
             </buttons>
             <BorderPane.margin>
                 <Insets right="10.0" />

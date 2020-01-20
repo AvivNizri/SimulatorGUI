@@ -2,6 +2,7 @@ package View;
 
 import Model.Simulator;
 //import ViewModel.ViewModel;
+import ViewModel.ViewModel;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -16,11 +17,11 @@ public class MainFrame extends Application {
     public void start(Stage _primaryStage) {
         primaryStage = _primaryStage;
 
-        // ***create models and view-model connections***
         // models
+//        Simulator simulator = new Simulator();
 
         // view model
-        //ViewModel viewModel = new ViewModel(simulator);
+//        ViewModel viewModel = new ViewModel(simulator);
 //        simulator.addObserver(viewModel);
 
         try {
@@ -29,7 +30,7 @@ public class MainFrame extends Application {
             root.setStyle("-fx-background-image: url(\"/Pictures/cockpit.jpg\");");
             MainFrameController mainFrame = fxml.getController();// view
 //            mainFrame.setViewModel(viewModel);
-            //viewModel.addObserver(mainFrame);
+//            viewModel.addObserver(mainFrame);
             primaryStage.setTitle("Aviv Nizri & Raz Sardas FlightSoftwate LTD");
             Scene scene = new Scene(root, 378, 458);
 //			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
