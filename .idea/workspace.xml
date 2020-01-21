@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="" />
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Model/Simulator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Simulator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/MainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/MainFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/MainFrameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/MainFrameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/PopUp.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/PopUp.fxml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -51,22 +60,29 @@
   <component name="FavoritesManager">
     <favorites_list name="JavaFxApplication" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="FxmlFile" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="FindManager">
     <FindUsagesManager>
       <setting name="OPEN_NEW_TAB" value="false" />
     </FindUsagesManager>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="1" />
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1612" />
-    <option name="height" value="876" />
-  </component>
   <component name="ProjectId" id="1WZD2YQbYFfoJct0GZgjKstDYQn" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectReloadState">
     <option name="STATE" value="0" />
   </component>
@@ -76,16 +92,23 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="GoToFile.includeJavaFiles" value="false" />
-    <property name="OverrideImplement.combined" value="false" />
-    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="recentsLimit" value="5" />
-    <property name="MemberChooser.sorted" value="false" />
-    <property name="MemberChooser.showClasses" value="true" />
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="dynamic.classpath" value="false" />
+    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="MemberChooser.showClasses" value="true" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="OverrideImplement.combined" value="false" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="dynamic.classpath" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../../../Jetbrains/javafx-sdk-12/openjfx-11.0.2_windows-x64_bin-sdk/javafx-sdk-11.0.2/lib" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="recentsLimit" value="5" />
+    <property name="settings.editor.selected.configurable" value="preferences.JavaFX" />
   </component>
   <component name="RunManager">
     <configuration default="true" type="Applet" factoryName="Applet">
@@ -114,12 +137,12 @@
       <Port>5050</Port>
     </configuration>
     <configuration name="Main" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="sample.Main" />
+      <option name="MAIN_CLASS_NAME" value="View.MainFrame" />
       <module name="SimulatorGUI" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="VM_PARAMETERS" value="--module-path /Users/Jetbrains/javafx-sdk-12/openjfx-11.0.2_windows-x64_bin-sdk/javafx-sdk-11.0.2/lib --add-modules javafx.controls,javafx.fxml" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="sample.*" />
+          <option name="PATTERN" value="View.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -201,13 +224,90 @@
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="656" y="347" key="com.intellij.ide.util.TipDialog" timestamp="1579348022362">
+    <state x="233" y="3" width="974" height="684" key="#Project_Structure" timestamp="1579459932897">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state x="233" y="3" width="974" height="684" key="#Project_Structure/0.0.1280.689@0.0.1280.689" timestamp="1579459932897" />
+    <state x="414" y="179" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1579363165602">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
+    <state x="414" y="179" key="#com.intellij.execution.impl.EditConfigurationsDialog/-1920.0.1280.700/0.0.1920.1050@0.0.1920.1050" timestamp="1579363165602" />
+    <state x="740" y="229" key="#com.intellij.ide.macro.MacrosDialog" timestamp="1579349714920">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="740" y="229" key="#com.intellij.ide.macro.MacrosDialog/-1920.0.1280.700/0.0.1920.1050@0.0.1920.1050" timestamp="1579349714920" />
+    <state x="510" y="107" key="#com.intellij.ide.util.MemberChooser" timestamp="1579470125952">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state x="765" y="233" key="#com.intellij.ide.util.MemberChooser/-1920.0.1280.700/0.0.1920.1050@0.0.1920.1050" timestamp="1579363140145" />
+    <state x="510" y="107" key="#com.intellij.ide.util.MemberChooser/0.0.1280.689@0.0.1280.689" timestamp="1579470125952" />
+    <state x="690" y="271" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1579362941593">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="690" y="271" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/-1920.0.1280.700/0.0.1920.1050@0.0.1920.1050" timestamp="1579362941593" />
+    <state x="530" y="118" key="CommitChangelistDialog2" timestamp="1579366641870">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="530" y="118" key="CommitChangelistDialog2/-1920.0.1280.700/0.0.1920.1050@0.0.1920.1050" timestamp="1579366641870" />
+    <state x="666" y="265" key="FileChooserDialogImpl" timestamp="1579351610878">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="666" y="265" key="FileChooserDialogImpl/-1920.0.1280.700/0.0.1920.1050@0.0.1920.1050" timestamp="1579351610878" />
+    <state width="1237" height="118" key="GridCell.Tab.0.bottom" timestamp="1579645120566">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state width="1877" height="172" key="GridCell.Tab.0.bottom/-1920.0.1280.700/0.0.1920.1050@0.0.1920.1050" timestamp="1579369962749" />
+    <state width="1237" height="118" key="GridCell.Tab.0.bottom/0.0.1280.689@0.0.1280.689" timestamp="1579645120566" />
+    <state width="1237" height="118" key="GridCell.Tab.0.center" timestamp="1579645120565">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state width="1877" height="172" key="GridCell.Tab.0.center/-1920.0.1280.700/0.0.1920.1050@0.0.1920.1050" timestamp="1579369962749" />
+    <state width="1237" height="118" key="GridCell.Tab.0.center/0.0.1280.689@0.0.1280.689" timestamp="1579645120565" />
+    <state width="1237" height="118" key="GridCell.Tab.0.left" timestamp="1579645120565">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state width="1877" height="172" key="GridCell.Tab.0.left/-1920.0.1280.700/0.0.1920.1050@0.0.1920.1050" timestamp="1579369962749" />
+    <state width="1237" height="118" key="GridCell.Tab.0.left/0.0.1280.689@0.0.1280.689" timestamp="1579645120565" />
+    <state width="1237" height="118" key="GridCell.Tab.0.right" timestamp="1579645120565">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state width="1877" height="172" key="GridCell.Tab.0.right/-1920.0.1280.700/0.0.1920.1050@0.0.1920.1050" timestamp="1579369962749" />
+    <state width="1237" height="118" key="GridCell.Tab.0.right/0.0.1280.689@0.0.1280.689" timestamp="1579645120565" />
+    <state width="1237" height="240" key="GridCell.Tab.1.bottom" timestamp="1579554978093">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state width="1237" height="240" key="GridCell.Tab.1.bottom/0.0.1280.689@0.0.1280.689" timestamp="1579554978093" />
+    <state width="1237" height="240" key="GridCell.Tab.1.center" timestamp="1579554978093">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state width="1237" height="240" key="GridCell.Tab.1.center/0.0.1280.689@0.0.1280.689" timestamp="1579554978093" />
+    <state width="1237" height="240" key="GridCell.Tab.1.left" timestamp="1579554978093">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state width="1237" height="240" key="GridCell.Tab.1.left/0.0.1280.689@0.0.1280.689" timestamp="1579554978093" />
+    <state width="1237" height="240" key="GridCell.Tab.1.right" timestamp="1579554978093">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state width="1237" height="240" key="GridCell.Tab.1.right/0.0.1280.689@0.0.1280.689" timestamp="1579554978093" />
+    <state x="440" y="98" key="SettingsEditor" timestamp="1579351617778">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="440" y="98" key="SettingsEditor/-1920.0.1280.700/0.0.1920.1050@0.0.1920.1050" timestamp="1579351617778" />
+    <state x="656" y="347" key="com.intellij.ide.util.TipDialog" timestamp="1579354196976">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="656" y="347" key="com.intellij.ide.util.TipDialog/-1920.0.1280.700/0.0.1920.1050@0.0.1920.1050" timestamp="1579354196976" />
     <state x="656" y="347" key="com.intellij.ide.util.TipDialog/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1579348022362" />
   </component>
-  <component name="antWorkspaceConfiguration">
-    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
-    <option name="FILTER_TARGETS" value="false" />
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/View/MainFrameController.java</url>
+          <line>307</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

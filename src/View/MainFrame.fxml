@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane prefHeight="458.0" prefWidth="378.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MainFrameController">
+   <padding>
+      <Insets bottom="5.0" />
+   </padding>
+   <top>
+          <HBox alignment="CENTER" prefHeight="40.0" prefWidth="225.0" BorderPane.alignment="CENTER">
+              <children>
+                  <Button id="ConnectWindow" fx:id="openConnectWindow" alignment="CENTER" mnemonicParsing="false" onAction="#openConnectWindow" prefHeight="20.0" prefWidth="80.0" text="Connect" textAlignment="CENTER">
+                       <font>
+                          <Font name="System Bold" size="14.0" />
+                       </font>
+                </Button>
+              </children>
+          </HBox>
+   </top>
+   <center>
+        <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="398.0" prefWidth="386.0" BorderPane.alignment="CENTER">
+            <children>
+                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="  Aileron" translateX="130.0" translateY="60.0" wrappingWidth="102.2421875">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                </Text>
+                <Text fill="WHITE" rotate="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" Elevator" textAlignment="CENTER" translateX="245.0" translateY="156.0" wrappingWidth="125.16796875">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                </Text>
+                <Circle fx:id="frameCircle" fill="#a4a2a6ae" radius="100.0" stroke="WHITE" strokeType="INSIDE" translateX="90.0" translateY="40.0" />
+                <Circle id="joystick" fx:id="joystick" onMouseDragged="#joystickIsDragged" onMousePressed="#joystickIsPressed" onMouseReleased="#joystickIsReleased" radius="33.0" stroke="BLACK" strokeType="INSIDE" translateX="157.0" translateY="-93.0">
+                    <fill>
+                  <RadialGradient centerX="0.4722222222222222" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.13718323409557343" green="0.12792398035526276" blue="0.19736842811107635" opacity="0.6800000071525574" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </RadialGradient>
+                    </fill>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin></Circle>
+                <Text fill="WHITE" rotate="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Throttle" translateY="-131.0">
+                    <font>
+                        <Font name="System Bold" size="16.0" />
+                    </font>
+                </Text>
+                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Rudder" translateX="163.0">
+                    <font>
+                        <Font name="System Bold" size="16.0" />
+                    </font>
+                </Text>
+                <Slider fx:id="rudderSlider" blockIncrement="0.1" majorTickUnit="0.1" max="1.0" maxWidth="-Infinity" min="-1.0" minorTickCount="0" prefWidth="250.0" showTickMarks="true" snapToTicks="true" translateX="65.0" translateY="-50.0" />
+                <Slider fx:id="throttleSlider" blockIncrement="0.1" majorTickUnit="0.1" max="1.0" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minorTickCount="0" orientation="VERTICAL" prefHeight="141.0" prefWidth="43.0" showTickMarks="true" snapToTicks="true" translateX="40.0" translateY="-260.0" />
+            </children>
+         <BorderPane.margin>
+            <Insets bottom="15.0" right="5.0" />
+         </BorderPane.margin>
+        </VBox>
+   </center>
+</BorderPane>
