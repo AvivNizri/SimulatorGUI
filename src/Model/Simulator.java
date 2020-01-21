@@ -20,7 +20,7 @@ public class Simulator implements ISimulator {
     };
     @Override
     public void setThrottle(double v) {
-        this.myClient.writeClient("set /controls/flight/throttle " + v);
+        this.myClient.writeClient("set /controls/engines/current-engine/throttle " + v);
         System.out.println("throttle "+v);
     }
 

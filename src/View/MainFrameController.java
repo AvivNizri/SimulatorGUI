@@ -197,15 +197,15 @@ public class MainFrameController {
             aileronV.set(0);
             elevatorV.set(0);
     }
-    public void setSliderOnDragEvent() {
-        rudderSlider.valueProperty().addListener((ChangeListener<Object>) (arg0, arg1, arg2) -> {
-            rudderValue.textProperty().setValue("" + (Math.round((rudderSlider.getValue() * 10.00))) / 10.00);
-            //viewModel.setRudder();
-        });
-
-        throttleSlider.valueProperty().addListener((ChangeListener<Object>) (arg0, arg1, arg2) -> {
-                throttleValue.textProperty().setValue("" + (Math.round((throttleSlider.getValue() * 10.00))) / 10.00);
-                //viewModel.setThrottle();
-        });
-    }
+//    public void setSliderOnDragEvent() {
+//        rudderSlider.valueProperty().addListener((ChangeListener<Object>) (arg0, arg1, arg2) -> {
+//            rudderValue.textProperty().setValue("" + (Math.round((rudderSlider.getValue() * 10.00))) / 10.00);
+//            //viewModel.setRudder();
+//        });
+//
+//        throttleSlider.valueProperty().addListener((ChangeListener<Object>) (arg0, arg1, arg2) -> {
+//                throttleValue.textProperty().setValue("" + (Math.round((throttleSlider.getValue() * 10.00))) / 10.00);
+//                //viewModel.setThrottle();
+//        });
+//    }
 }
