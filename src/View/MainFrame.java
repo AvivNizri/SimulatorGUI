@@ -1,5 +1,6 @@
 package View;
 
+import Model.ISimulator;
 import Model.Simulator;
 //import ViewModel.ViewModel;
 import ViewModel.ViewModel;
@@ -16,12 +17,10 @@ public class MainFrame extends Application {
     @Override
     public void start(Stage _primaryStage) {
         primaryStage = _primaryStage;
-
-        // models
-//        Simulator simulator = new Simulator();
+        Simulator simulator = new Simulator();
 
         // view model
-//        ViewModel viewModel = new ViewModel(simulator);
+        ViewModel viewModel = new ViewModel(simulator);
 //        simulator.addObserver(viewModel);
 
         try {
@@ -29,7 +28,7 @@ public class MainFrame extends Application {
             BorderPane root = fxml.load(getClass().getResource("MainFrame.fxml").openStream());
             root.setStyle("-fx-background-image: url(\"/Pictures/cockpit.jpg\");");
             MainFrameController mainFrame = fxml.getController();// view
-//            mainFrame.setViewModel(viewModel);
+            mainFrame.setViewModel(viewModel);
 //            viewModel.addObserver(mainFrame);
             primaryStage.setTitle("Aviv Nizri & Raz Sardas FlightSoftwate LTD");
             Scene scene = new Scene(root, 378, 458);

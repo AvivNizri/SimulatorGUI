@@ -7,7 +7,16 @@ public class Simulator implements ISimulator {
     public Client myClient;
 
     public Simulator(Client myClient){
+
         this.myClient = myClient;
+    };
+
+    public void setMyClient( Client client){
+        this.myClient = client;
+    }
+
+    public Simulator(){
+        this.myClient=null;
     };
     @Override
     public void setThrottle(double v) {

@@ -79,6 +79,13 @@ public class MainFrameController {
         rudderValue = new Label();
     }
 
+    public void setViewModel(ViewModel viewModel0) {
+        this.viewModel = viewModel0;
+        this.viewModel.rudder.bind(rudderSlider.valueProperty());
+        this.viewModel.throttle.bind(throttleSlider.valueProperty());
+        this.viewModel.aileron.bind(this.aileronV);
+        this.viewModel.elevator.bind(this.elevatorV);
+    }
 
     @FXML
     private void openConnectWindow(ActionEvent event) throws IOException {
@@ -97,49 +104,19 @@ public class MainFrameController {
 //        if (event.getSource() == openConnectWindow) {
 //            stage.setTitle("Simulator Server");
 //        }
-
-        // dont foret to remove!!!!!!!!!!!!1
-        //handleConnectRemove();
     }
-
-    /* Remove the following method!!!!!!!!!! */
-//    @FXML
-//    private void handleConnectRemove() throws IOException {
-//        String ip = "127.0.0.1";
-//        String port = "5402";
-//        System.out.println("Param : " + ip  +"  "+ port);
-//        this.viewModel= new ViewModel(new Simulator(new Client(ip, Integer.parseInt(port))));
-//        String mode = ((Stage) connectServerBtn.getScene().getWindow()).getTitle();
-//
-//        if (ip.matches("^(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})$") && port.matches("^(\\d{1,4})")) {
-//            if (mode == "Simulator Server") {
-//                // handle connection for connecting to the simulator server
-//                simulatorIP.setText(ip);
-//                simulatorPort.setText(port);
-//                viewModel.simulator.myClient.runClient();
-//            } else if (mode == "Path Calculation Server") {
-//                // handle connection for calculating path
-////                pathServerIp.setText(ip);
-////                pathServerPort.setText(port);
-//            }
-//
-//            // need to handle connect to server
-//            //closeConnectWindow(event);
-//        }
-//    }
-    /* Remove the above method!!!!!!!!!! */
-
 
     @FXML
     private void handleConnect(ActionEvent event) throws IOException {
         String ip = connectionIp.getText();
         String port = connectionPort.getText();
         System.out.println("Param : " + ip  +"  "+ port);
-        this.viewModel = new ViewModel(new Simulator(new Client(ip, Integer.parseInt(port))));
-        viewModel.throttle.bind(throttleSlider.valueProperty());
-        viewModel.rudder.bind(rudderSlider.valueProperty());
-        viewModel.aileron.bind(aileronV);
-        viewModel.elevator.bind(elevatorV);
+        this.viewModel.simulator.setMyClient(new Client(ip, Integer.parseInt(port)));
+//        this.viewModel = new ViewModel(new Simulator(new Client(ip, Integer.parseInt(port))));
+////        viewModel.throttle.bind(throttleSlider.valueProperty());
+////        viewModel.rudder.bind(rudderSlider.valueProperty());
+////        viewModel.aileron.bind(aileronV);
+////        viewModel.elevator.bind(elevatorV);
         String mode = ((Stage) ServerConnect.getScene().getWindow()).getTitle();
 
         if (ip.matches("^(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})$") && port.matches("^(\\d{1,4})")) {
@@ -156,8 +133,8 @@ public class MainFrameController {
     private void closeConnectWindow(ActionEvent event) throws IOException {
         Stage stage = (Stage) back.getScene().getWindow();
         stage.close();
-        rudderValue.setText("" + (Math.round((rudderSlider.getValue() * 10.00))) / 10.00); // round to the closest decimal
-        throttleValue.setText("" + (Math.round((throttleSlider.getValue() * 10.00))) / 10.00); // round to the closest decimal
+        //rudderValue.setText("" + (Math.round((rudderSlider.getValue() * 10.00))) / 10.00); // round to the closest decimal
+        //throttleValue.setText("" + (Math.round((throttleSlider.getValue() * 10.00))) / 10.00); // round to the closest decimal
         rudderSlider.setValue(0);
         throttleSlider.setValue(0);
         aileronV.set(0);
