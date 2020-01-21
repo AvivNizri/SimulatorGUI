@@ -5,12 +5,15 @@ import Model.Simulator;
 import ViewModel.ViewModel;
 
 import javafx.beans.property.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -55,6 +58,10 @@ public class MainFrameController {
     private Circle joystick;
     @FXML
     private Circle frameCircle;
+    @FXML
+    private Label throttleValue;
+    @FXML
+    private Label rudderValue;
 
     public MainFrameController() {
         openConnectWindow = new Button();
@@ -68,15 +75,10 @@ public class MainFrameController {
         aileronV = new SimpleDoubleProperty();
         elevatorV = new SimpleDoubleProperty();
         back = new Button();
+        throttleValue = new Label();
+        rudderValue = new Label();
     }
 
-//    public void setViewModel(ViewModel vm) {
-//        viewModel = vm;
-//        this.viewModel.throttle.bind(throttleSlider.valueProperty());
-//        this.viewModel.rudder.bind(rudderSlider.valueProperty());
-//        this.viewModel.aileron.bind(aileronV);
-//        this.viewModel.elevator.bind(elevatorV);
-//    }
 
     @FXML
     private void openConnectWindow(ActionEvent event) throws IOException {
@@ -134,6 +136,10 @@ public class MainFrameController {
         String port = connectionPort.getText();
         System.out.println("Param : " + ip  +"  "+ port);
         this.viewModel = new ViewModel(new Simulator(new Client(ip, Integer.parseInt(port))));
+        viewModel.throttle.bind(throttleSlider.valueProperty());
+        viewModel.rudder.bind(rudderSlider.valueProperty());
+        viewModel.aileron.bind(aileronV);
+        viewModel.elevator.bind(elevatorV);
         String mode = ((Stage) ServerConnect.getScene().getWindow()).getTitle();
 
         if (ip.matches("^(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})$") && port.matches("^(\\d{1,4})")) {
@@ -142,14 +148,7 @@ public class MainFrameController {
                 simulatorIP.setText(ip);
                 simulatorPort.setText(port);
                 viewModel.simulator.myClient.runClient();
-            //}
-//            else if (mode == "Path Calculation Server") {
-//                // handle connection for calculating path
-////                pathServerIp.setText(ip);
-////                pathServerPort.setText(port);
-//            }
-            // need to handle connect to server
-            closeConnectWindow(event);
+                closeConnectWindow(event);
         }
     }
 
@@ -157,6 +156,12 @@ public class MainFrameController {
     private void closeConnectWindow(ActionEvent event) throws IOException {
         Stage stage = (Stage) back.getScene().getWindow();
         stage.close();
+        rudderValue.setText("" + (Math.round((rudderSlider.getValue() * 10.00))) / 10.00); // round to the closest decimal
+        throttleValue.setText("" + (Math.round((throttleSlider.getValue() * 10.00))) / 10.00); // round to the closest decimal
+        rudderSlider.setValue(0);
+        throttleSlider.setValue(0);
+        aileronV.set(0);
+        elevatorV.set(0);
     }
 
     @FXML
@@ -214,5 +219,16 @@ public class MainFrameController {
 
             aileronV.set(0);
             elevatorV.set(0);
+    }
+    public void setSliderOnDragEvent() {
+        rudderSlider.valueProperty().addListener((ChangeListener<Object>) (arg0, arg1, arg2) -> {
+            rudderValue.textProperty().setValue("" + (Math.round((rudderSlider.getValue() * 10.00))) / 10.00);
+            //viewModel.setRudder();
+        });
+
+        throttleSlider.valueProperty().addListener((ChangeListener<Object>) (arg0, arg1, arg2) -> {
+                throttleValue.textProperty().setValue("" + (Math.round((throttleSlider.getValue() * 10.00))) / 10.00);
+                //viewModel.setThrottle();
+        });
     }
 }
