@@ -1,22 +1,17 @@
 package View;
 
 import java.io.IOException;
-import Model.Simulator;
 import ViewModel.ViewModel;
 
 import javafx.beans.property.*;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Circle;
@@ -29,13 +24,12 @@ public class MainFrameController {
     private double orgSceneX, orgSceneY;
     private double orgTranslateX, orgTranslateY;
 
-    // MVVM Variables
+    // MVVM Var
     private DoubleProperty aileronV, elevatorV;
 
+    // entire GUI features
     @FXML
     private Button openConnectWindow;
-
-    // Connect to server/path solver window
     @FXML
     private Button back;
     @FXML
@@ -48,8 +42,6 @@ public class MainFrameController {
     private TextField simulatorIP;
     @FXML
     private TextField simulatorPort;
-
-    // Manual mode objects (slider + joystick)
     @FXML
     private Slider rudderSlider;
     @FXML
@@ -63,6 +55,7 @@ public class MainFrameController {
     @FXML
     private Label rudderValue;
 
+    //Ctor
     public MainFrameController() {
         openConnectWindow = new Button();
         ServerConnect = new Button();
@@ -78,7 +71,7 @@ public class MainFrameController {
         throttleValue = new Label();
         rudderValue = new Label();
     }
-
+    // Pay Attention the view model is being created in the mainFrame section
     public void setViewModel(ViewModel viewModel0) {
         this.viewModel = viewModel0;
         this.viewModel.rudder.bind(rudderSlider.valueProperty());
@@ -87,13 +80,12 @@ public class MainFrameController {
         this.viewModel.elevator.bind(this.elevatorV);
     }
 
+    // here is the small popUp window which we set the params to the remote simulator
     @FXML
     private void openConnectWindow(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PopUp.fxml"));
-        //fxmlLoader.setController(this);
-        // that important!!!!
         BorderPane root = (BorderPane) fxmlLoader.load();
-        //Parent root = (Parent) fxmlLoader.load(getClass().getResource("PopUp.fxml").openStream());
+        root.setStyle("-fx-background-image: url(\"/Pictures/connect.jpg\");");
         Stage stage = new Stage();
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(MainFrame.primaryStage);
@@ -101,27 +93,18 @@ public class MainFrameController {
         stage.show();
         MainFrameController connectWindow = fxmlLoader.getController();
         connectWindow.viewModel= this.viewModel;
-//        if (event.getSource() == openConnectWindow) {
-//            stage.setTitle("Simulator Server");
-//        }
     }
 
+    // right after the connectWindow invoke, this function actually run and connect the client
     @FXML
     private void handleConnect(ActionEvent event) throws IOException {
         String ip = connectionIp.getText();
         String port = connectionPort.getText();
         System.out.println("Param : " + ip  +"  "+ port);
         this.viewModel.simulator.setMyClient(new Client(ip, Integer.parseInt(port)));
-//        this.viewModel = new ViewModel(new Simulator(new Client(ip, Integer.parseInt(port))));
-////        viewModel.throttle.bind(throttleSlider.valueProperty());
-////        viewModel.rudder.bind(rudderSlider.valueProperty());
-////        viewModel.aileron.bind(aileronV);
-////        viewModel.elevator.bind(elevatorV);
         String mode = ((Stage) ServerConnect.getScene().getWindow()).getTitle();
 
         if (ip.matches("^(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})$") && port.matches("^(\\d{1,4})")) {
-            //if (mode == "Simulator Server") {
-                // handle connection for connecting to the simulator server
                 simulatorIP.setText(ip);
                 simulatorPort.setText(port);
                 viewModel.simulator.myClient.runClient();
@@ -133,8 +116,6 @@ public class MainFrameController {
     private void closeConnectWindow(ActionEvent event) throws IOException {
         Stage stage = (Stage) back.getScene().getWindow();
         stage.close();
-        //rudderValue.setText("" + (Math.round((rudderSlider.getValue() * 10.00))) / 10.00); // round to the closest decimal
-        //throttleValue.setText("" + (Math.round((throttleSlider.getValue() * 10.00))) / 10.00); // round to the closest decimal
         rudderSlider.setValue(0);
         throttleSlider.setValue(0);
         aileronV.set(0);
@@ -193,19 +174,7 @@ public class MainFrameController {
     private void joystickIsReleased(MouseEvent me) {
             ((Circle) (me.getSource())).setTranslateX(frameCircle.getTranslateX() + frameCircle.getRadius() - joystick.getRadius());
             ((Circle) (me.getSource())).setTranslateY(frameCircle.getTranslateY() - frameCircle.getRadius() - joystick.getRadius());
-
             aileronV.set(0);
             elevatorV.set(0);
     }
-//    public void setSliderOnDragEvent() {
-//        rudderSlider.valueProperty().addListener((ChangeListener<Object>) (arg0, arg1, arg2) -> {
-//            rudderValue.textProperty().setValue("" + (Math.round((rudderSlider.getValue() * 10.00))) / 10.00);
-//            //viewModel.setRudder();
-//        });
-//
-//        throttleSlider.valueProperty().addListener((ChangeListener<Object>) (arg0, arg1, arg2) -> {
-//                throttleValue.textProperty().setValue("" + (Math.round((throttleSlider.getValue() * 10.00))) / 10.00);
-//                //viewModel.setThrottle();
-//        });
-//    }
 }
